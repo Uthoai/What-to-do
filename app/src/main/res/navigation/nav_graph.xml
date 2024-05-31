@@ -7,12 +7,17 @@
 
     <fragment
         android:id="@+id/taskFragment"
-        android:name="com.example.what_to_do.TaskFragment"
+        android:name="com.example.what_to_do.view.TaskFragment"
         android:label="Task"
         tools:layout="@layout/fragment_task" />
     <fragment
         android:id="@+id/statisticsFragment"
-        android:name="com.example.what_to_do.StatisticsFragment"
+        android:name="com.example.what_to_do.view.StatisticsFragment"
         android:label="Statistics"
         tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/addTaskFragment"
+        android:name="com.example.what_to_do.view.addtask.AddTaskFragment"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" />
 </navigation>

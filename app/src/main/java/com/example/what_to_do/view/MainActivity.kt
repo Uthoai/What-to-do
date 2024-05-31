@@ -1,4 +1,4 @@
-package com.example.what_to_do
+package com.example.what_to_do.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.what_to_do.R
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
