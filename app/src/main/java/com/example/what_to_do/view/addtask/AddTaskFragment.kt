@@ -17,9 +17,10 @@ class AddTaskFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_add_task,container,false)
 
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this.viewLifecycleOwner
 
         return binding.root
     }
