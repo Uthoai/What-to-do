@@ -27,6 +27,16 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             tools:ignore="Autofill,TextFields" />
 
+        <TextView
+            android:id="@+id/warning_text_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1/20"
+            android:textColor="#6B29DF"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@id/editTextTitle"
+            app:layout_constraintTop_toBottomOf="@id/editTextTitle"/>
+
         <EditText
             android:text="@={viewModel.description}"
             android:id="@+id/editTextDetail"

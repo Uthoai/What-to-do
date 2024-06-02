@@ -9,6 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.example.what_to_do.R
 import com.example.what_to_do.databinding.FragmentAddTaskBinding
+import com.example.what_to_do.utils.showChar
+import com.example.what_to_do.utils.showSnackBar
+import com.google.android.material.snackbar.Snackbar
 
 class AddTaskFragment : Fragment() {
     private lateinit var binding: FragmentAddTaskBinding
@@ -22,7 +25,28 @@ class AddTaskFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
 
+        bindUiMessage()
+
         return binding.root
     }
+
+    private fun bindUiMessage() {
+        binding.warningTextTaskTitle.showChar(lifecycleOwner = viewLifecycleOwner, viewModel.title)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setSnackbar(view)
+    }
+
+    private fun setSnackbar(view: View) {
+        view.showSnackBar(
+            lifecycleOwner = viewLifecycleOwner,
+            viewModel.snackbarMsg,
+            Snackbar.LENGTH_SHORT
+        )
+    }
+
 
 }
