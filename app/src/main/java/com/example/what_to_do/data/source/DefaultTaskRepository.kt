@@ -1,6 +1,7 @@
 package com.example.what_to_do.data.source
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import com.example.what_to_do.data.Task
 import com.example.what_to_do.data.source.local.LocalDataSource
 import com.example.what_to_do.data.source.local.ToDoDatabase
@@ -34,4 +35,7 @@ class DefaultTaskRepository private constructor(application: Application) {
         }
     }
 
+    fun getAllTasks(): LiveData<List<Task>> {
+        return localDataSource.getAllTask()
+    }
 }

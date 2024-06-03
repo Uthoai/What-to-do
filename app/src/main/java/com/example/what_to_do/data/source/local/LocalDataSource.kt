@@ -1,11 +1,11 @@
 package com.example.what_to_do.data.source.local
 
+import androidx.lifecycle.LiveData
 import com.example.what_to_do.data.Task
 import com.example.what_to_do.data.source.TaskDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.security.PrivateKey
 
 class LocalDataSource(
     private val taskDao: TaskDao,
@@ -15,5 +15,9 @@ class LocalDataSource(
         withContext(ioDispatcher){
             taskDao.insert(task)
         }
+    }
+
+    override fun getAllTask(): LiveData<List<Task>> {
+        return taskDao.getAllTask()
     }
 }
