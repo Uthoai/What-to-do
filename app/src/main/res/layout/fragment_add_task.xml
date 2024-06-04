@@ -37,6 +37,15 @@
             app:layout_constraintStart_toStartOf="@id/editTextTitle"
             app:layout_constraintTop_toBottomOf="@id/editTextTitle"/>
 
+        <TextView
+            android:id="@+id/warning_title_limit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FB0505"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@id/editTextTitle"
+            app:layout_constraintTop_toBottomOf="@id/editTextTitle"/>
+
         <EditText
             android:text="@={viewModel.description}"
             android:id="@+id/editTextDetail"

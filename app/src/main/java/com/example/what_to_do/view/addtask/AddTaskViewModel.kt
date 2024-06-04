@@ -20,6 +20,7 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
     val snackbarMsg get() = _snackbarMsg
 
     private val titleLength = 3
+    private val maxTitleLength = 20
 
     fun saveTask() {
         val currentTitle = title.value
@@ -39,6 +40,10 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
         }
         if (currentTitle.length < titleLength){
             _snackbarMsg.postValue(R.string.titleLenght)
+        }
+        if (currentTitle.length > maxTitleLength){
+            _snackbarMsg.postValue(R.string.title_length_max_20)
+            return false
         }
         return true
     }

@@ -29,7 +29,7 @@ class TaskFragment : Fragment(), TaskListAdapter.HandleUserClick {
         binding.taskViewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
 
-        viewModel.allTask.observe(viewLifecycleOwner) {list ->
+        viewModel.allTask.observe(viewLifecycleOwner) { list ->
             adapter = TaskListAdapter(this, list)
             binding.recyclerView.adapter = adapter
         }

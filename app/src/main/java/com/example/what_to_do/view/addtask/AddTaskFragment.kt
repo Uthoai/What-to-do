@@ -1,7 +1,6 @@
 package com.example.what_to_do.view.addtask
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.example.what_to_do.R
 import com.example.what_to_do.databinding.FragmentAddTaskBinding
+import com.example.what_to_do.utils.limitChar
 import com.example.what_to_do.utils.showChar
 import com.example.what_to_do.utils.showSnackBar
 import com.google.android.material.snackbar.Snackbar
@@ -47,6 +47,7 @@ class AddTaskFragment : Fragment() {
 
     private fun bindUiMessage() {
         binding.warningTextTaskTitle.showChar(lifecycleOwner = viewLifecycleOwner, viewModel.title)
+        binding.warningTitleLimit.limitChar(lifecycleOwner = viewLifecycleOwner, viewModel.title)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

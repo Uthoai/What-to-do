@@ -1,6 +1,7 @@
 package com.example.what_to_do.utils
 
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -34,6 +35,22 @@ fun TextView.showChar(
         }
     }
 }
+
+fun TextView.limitChar(
+    lifecycleOwner: LifecycleOwner,
+    charMsg: LiveData<String>,
+) {
+    charMsg.observe(lifecycleOwner){ msg ->
+        if (msg.length <= 20) {
+            inVisible()
+        } else {
+            visible()
+            text = "title length max 20"
+        }
+    }
+}
+
+
 
 fun View.visible() {
     this.visibility = View.VISIBLE
