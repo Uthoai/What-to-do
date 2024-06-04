@@ -9,10 +9,6 @@ import com.example.what_to_do.data.source.DefaultTaskRepository
 class TaskViewModel(application: Application): AndroidViewModel(application) {
     val repository : DefaultTaskRepository = DefaultTaskRepository.getInstance(application)
 
-    /*fun getAllTask(): LiveData<List<Task>>{
-        return repository.getAllTasks()
-    }*/
-
-    var allNote: LiveData<List<Task>> = repository.getAllTasks()
+    var allTask: LiveData<List<Task>> = repository.getAllTasks()
 
 }

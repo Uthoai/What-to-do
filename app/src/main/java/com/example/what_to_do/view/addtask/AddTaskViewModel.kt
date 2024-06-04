@@ -3,14 +3,11 @@ package com.example.what_to_do.view.addtask
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.what_to_do.R
 import com.example.what_to_do.data.Task
 import com.example.what_to_do.data.source.DefaultTaskRepository
-import com.example.what_to_do.data.source.local.ToDoDatabase
 import com.example.what_to_do.utils.toTrimString
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class AddTaskViewModel(application: Application): AndroidViewModel(application) {
@@ -40,7 +37,7 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
             _snackbarMsg.postValue(R.string.empty_task_message)
             return false
         }
-        if (currentTitle.length <= titleLength){
+        if (currentTitle.length < titleLength){
             _snackbarMsg.postValue(R.string.titleLenght)
         }
         return true

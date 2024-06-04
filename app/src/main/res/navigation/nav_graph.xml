@@ -22,10 +22,24 @@
     <fragment
         android:id="@+id/addTaskFragment"
         android:name="com.example.what_to_do.view.addtask.AddTaskFragment"
-        android:label="fragment_add_task"
+        android:label="Add Task"
         tools:layout="@layout/fragment_add_task" >
-        <action
-            android:id="@+id/action_addTaskFragment_to_taskFragment"
-            app:destination="@id/taskFragment" />
+
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="description"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="isCompleted"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

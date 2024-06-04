@@ -7,8 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.what_to_do.data.Task
 import com.example.what_to_do.databinding.TaskItemLayoutBinding
 
-class TaskListAdapter(private val list: List<Task>) :
+class TaskListAdapter(private var handleUserClick: HandleUserClick,private val list: List<Task>) :
     RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
+
+    interface HandleUserClick{
+        fun onEditClick(task: Task)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder(
             TaskItemLayoutBinding.inflate(
@@ -24,9 +28,13 @@ class TaskListAdapter(private val list: List<Task>) :
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        list[position].let {
+        list[position].let {task->
             holder.binding.apply {
-                tvTitle.text = it.title
+                tvTitle.text = task.title
+
+                root.setOnClickListener {
+                    handleUserClick.onEditClick(task)
+                }
             }
         }
     }

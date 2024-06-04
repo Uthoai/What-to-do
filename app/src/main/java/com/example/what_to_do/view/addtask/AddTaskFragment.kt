@@ -1,6 +1,7 @@
 package com.example.what_to_do.view.addtask
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,12 +28,25 @@ class AddTaskFragment : Fragment() {
 
         bindUiMessage()
 
+        setEditTaskData()
+
+
         return binding.root
+    }
+
+    private fun setEditTaskData() {
+        val selectedTaskData = AddTaskFragmentArgs.fromBundle(requireArguments())
+        //Log.d("TAG", "setEditTaskData: ${selectedTaskData.title}")
+        binding.viewModel?.let {
+            if (selectedTaskData.id != -1){
+                it.title.value = selectedTaskData.title
+                it.description.value = selectedTaskData.description
+            }
+        }
     }
 
     private fun bindUiMessage() {
         binding.warningTextTaskTitle.showChar(lifecycleOwner = viewLifecycleOwner, viewModel.title)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
