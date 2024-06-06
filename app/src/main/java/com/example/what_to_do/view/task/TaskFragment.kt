@@ -16,7 +16,7 @@ import com.example.what_to_do.data.Task
 import com.example.what_to_do.databinding.FragmentTaskBinding
 import com.example.what_to_do.view.addtask.AddTaskViewModel
 
-class TaskFragment : Fragment(), TaskListAdapter.HandleUserClick {
+class TaskFragment : Fragment() {
     private lateinit var binding: FragmentTaskBinding
     private val viewModel by viewModels<TaskViewModel>()
     private lateinit var adapter: TaskListAdapter
@@ -29,10 +29,11 @@ class TaskFragment : Fragment(), TaskListAdapter.HandleUserClick {
         binding.taskViewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
 
-        viewModel.allTask.observe(viewLifecycleOwner) { list ->
+        /*viewModel.allTask.observe(viewLifecycleOwner) { list ->
             adapter = TaskListAdapter(this, list)
             binding.recyclerView.adapter = adapter
-        }
+        }*/
+        setTaskAdapter()
 
         binding.fabAddTask.setOnClickListener {
             findNavController().navigate(R.id.action_taskFragment_to_addTaskFragment)
@@ -41,7 +42,15 @@ class TaskFragment : Fragment(), TaskListAdapter.HandleUserClick {
         return binding.root
     }
 
-    override fun onEditClick(task: Task) {
+    private fun setTaskAdapter() {
+        val viewModel = binding.taskViewModel
+        if (viewModel != null){
+            adapter = TaskListAdapter(viewModel)
+            binding.recyclerView.adapter = adapter
+        }
+    }
+
+    /*override fun onEditClick(task: Task) {
         findNavController().navigate(
             TaskFragmentDirections.actionTaskFragmentToAddTaskFragment(
                 task.id,
@@ -50,5 +59,5 @@ class TaskFragment : Fragment(), TaskListAdapter.HandleUserClick {
                 task.isCompleted
             )
         )
-    }
+    }*/
 }
