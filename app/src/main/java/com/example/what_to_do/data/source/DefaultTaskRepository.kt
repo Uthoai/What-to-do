@@ -38,4 +38,8 @@ class DefaultTaskRepository private constructor(application: Application) {
     fun getAllTasks(): LiveData<List<Task>> {
         return localDataSource.getAllTask()
     }
+
+    fun getTaskById(id: Int): LiveData<Task>{
+        return localDataSource.getTaskById(id)
+    }
 }

@@ -26,20 +26,9 @@
         tools:layout="@layout/fragment_add_task" >
 
         <argument
-            android:name="id"
+            android:name="taskId"
             app:argType="integer"
-            android:defaultValue="-1"/>
-        <argument
-            android:name="title"
-            app:argType="string"
-            android:defaultValue="" />
-        <argument
-            android:name="description"
-            app:argType="string"
-            android:defaultValue="" />
-        <argument
-            android:name="isCompleted"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="0"/>
+
     </fragment>
 </navigation>

@@ -2,6 +2,9 @@ package com.example.what_to_do.view.addtask
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.what_to_do.R
@@ -21,6 +24,16 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
 
     private val titleLength = 3
     private val maxTitleLength = 20
+
+    private val _editableTask =  MutableLiveData<Task>()
+    val editableTask: LiveData<Task> get() = _editableTask
+
+    fun getTaskById(id: Int, lifecycleOwner: LifecycleOwner){
+        repository.getTaskById(id).observe(lifecycleOwner){
+            title.postValue(it.title)
+            description.postValue(it.description)
+        }
+    }
 
     fun saveTask() {
         val currentTitle = title.value
