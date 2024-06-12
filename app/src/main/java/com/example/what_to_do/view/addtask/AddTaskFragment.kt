@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.what_to_do.R
 import com.example.what_to_do.databinding.FragmentAddTaskBinding
 import com.example.what_to_do.utils.limitChar
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 class AddTaskFragment : Fragment() {
     private lateinit var binding: FragmentAddTaskBinding
     private val viewModel by viewModels<AddTaskViewModel>()
+    private val args : AddTaskFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,21 +30,16 @@ class AddTaskFragment : Fragment() {
 
         bindUiMessage()
 
-        setEditTaskData()
-
-
-        return binding.root
-    }
-
-    private fun setEditTaskData() {
-        val selectedTaskData = AddTaskFragmentArgs.fromBundle(requireArguments())
-        //Log.d("TAG", "setEditTaskData: ${selectedTaskData.title}")
-        binding.viewModel?.let {
-            if (selectedTaskData.id != -1){
-                it.title.value = selectedTaskData.title
-                it.description.value = selectedTaskData.description
+        viewModel.getTaskById(args.taskId)?.let {taskObserver->
+            taskObserver.observe(viewLifecycleOwner){task->
+                task?.let {
+                    viewModel.title.postValue(task.title.toString())
+                    viewModel.description.postValue(task.description.toString())
+                }
             }
         }
+
+        return binding.root
     }
 
     private fun bindUiMessage() {
