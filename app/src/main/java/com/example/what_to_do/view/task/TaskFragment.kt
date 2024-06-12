@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.what_to_do.R
 import com.example.what_to_do.adapter.TaskListAdapter
+import com.example.what_to_do.data.Task
 import com.example.what_to_do.databinding.FragmentTaskBinding
 
 class TaskFragment : Fragment() {
@@ -32,11 +33,6 @@ class TaskFragment : Fragment() {
     }
 
     private fun setUpNavigation() {
-        viewModel.openTaskEvent.observe(viewLifecycleOwner){
-            val action = TaskFragmentDirections.actionTaskFragmentToAddTaskFragment(it)
-            findNavController().navigate(action)
-        }
-
         binding.fabAddTask.setOnClickListener {
             findNavController().navigate(R.id.action_taskFragment_to_addTaskFragment)
         }
@@ -45,8 +41,12 @@ class TaskFragment : Fragment() {
     private fun setTaskAdapter() {
         val viewModel = binding.taskViewModel
         if (viewModel != null){
-            adapter = TaskListAdapter(viewModel)
+            adapter = TaskListAdapter(viewModel){task->
+                val action = TaskFragmentDirections.actionTaskFragmentToAddTaskFragment(task.id)
+                findNavController().navigate(action)
+            }
             binding.recyclerView.adapter = adapter
         }
     }
+
 }

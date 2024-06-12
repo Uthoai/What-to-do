@@ -9,21 +9,33 @@ import com.example.what_to_do.data.Task
 import com.example.what_to_do.databinding.TaskItemLayoutBinding
 import com.example.what_to_do.view.task.TaskViewModel
 
-class TaskListAdapter (val viewModel: TaskViewModel): ListAdapter<Task, TaskListAdapter.TaskViewHolder>(COMARATOR) {
+class TaskListAdapter(
+    val viewModel: TaskViewModel,
+    private val taskClickListener: TaskClickListener
+) :
+    ListAdapter<Task, TaskListAdapter.TaskViewHolder>(COMARATOR) {
+
+    fun interface TaskClickListener {
+        fun onTaskClicked(task: Task)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = getItem(position)
-        holder.bind(viewModel,task)
+        holder.bind(viewModel, task, taskClickListener)
     }
 
     class TaskViewHolder private constructor(val binding: TaskItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: TaskViewModel,mTask: Task){
+        fun bind(viewModel: TaskViewModel, mTask: Task, taskClickListener: TaskClickListener) {
             binding.apply {
+                root.setOnClickListener {
+                    taskClickListener.onTaskClicked(mTask)
+                }
                 taskViewModel = viewModel
                 task = mTask
                 executePendingBindings()
@@ -33,7 +45,7 @@ class TaskListAdapter (val viewModel: TaskViewModel): ListAdapter<Task, TaskList
         companion object {
             fun from(parent: ViewGroup): TaskViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = TaskItemLayoutBinding.inflate(layoutInflater,parent,false)
+                val binding = TaskItemLayoutBinding.inflate(layoutInflater, parent, false)
 
                 return TaskViewHolder(binding)
             }

@@ -39,7 +39,12 @@ class DefaultTaskRepository private constructor(application: Application) {
         return localDataSource.getAllTask()
     }
 
-    fun getTaskById(id: Int): LiveData<Task>{
-        return localDataSource.getTaskById(id)
+    fun getTaskById(id: Int) = localDataSource.getTaskById(id)
+
+    suspend fun updateTask(task: Task){
+        withContext(ioDispatcher){
+            localDataSource.updateTask(task)
+        }
     }
+
 }

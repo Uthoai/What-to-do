@@ -30,11 +30,17 @@ class AddTaskFragment : Fragment() {
 
         bindUiMessage()
 
-        viewModel.getTaskById(args.taskId,viewLifecycleOwner)
+        viewModel.getTaskById(args.taskId)?.let {taskObserver->
+            taskObserver.observe(viewLifecycleOwner){task->
+                task?.let {
+                    viewModel.title.postValue(task.title.toString())
+                    viewModel.description.postValue(task.description.toString())
+                }
+            }
+        }
 
         return binding.root
     }
-
 
     private fun bindUiMessage() {
         binding.warningTextTaskTitle.showChar(lifecycleOwner = viewLifecycleOwner, viewModel.title)
